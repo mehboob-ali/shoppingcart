@@ -1,9 +1,12 @@
 import './App.css';
+import NavBar from './components/NavBar';
+import Product from './components/Product';
 
 function App() {
   return (
-    <div className=" bg-slate-600 sm:bg-cyan-500  ">
-      <h1>hellooo</h1>
+    <div className=" bg-teal-med">
+      <NavBar></NavBar>
+      <Product></Product>
 
     </div>
   );
