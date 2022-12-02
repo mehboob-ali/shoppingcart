@@ -1,64 +1,67 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React, {useState} from 'react'
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../redux/reducers/cartSlice';
-import { BrowserRouter as Router ,Link } from 'react-router-dom';
+import { addToCart, addToCartAsync } from '../redux/reducers/cartSlice';
+import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
+import Cart from './Cart';
 
-function Product() {
-    const [products,setProducts] = useState([])
-    useEffect(() => {
-        fetch('https://fakestoreapi.com/products').then(res=>res.json())
-        .then(data=>setProducts(data));
-      return () => {
-        
-      }
-    }, [])
-    
-    const dispatch= useDispatch();
+const Product = ({ products })=> {
+    const [isShowCart , setIsShowCart] = useState(false)
+    let a={fruits : ['msngo','apple'],
+    vegetables : ['spinach', 'potato']
+    };
+    let b={...a, fruits:[...a.fruits ,'grapes']}
+    console.log('testing', b)
 
-    const handleAddToCart=(e)=>{
+    const dispatch = useDispatch();
+
+    const handleAddToCart = (e) => {
         e.preventDefault();
-        dispatch(addToCart(e.target.value));  
+        console.log("inside handleaddtocart funcion", e.target.value)
+        dispatch(addToCartAsync(e.target.value));
     }
 
-  return (
-    <div>
-    <div>
-        <NavBar></NavBar>
-    </div>
+    return (
+        <div>
+            <div>
+                <NavBar setIsShowCart={setIsShowCart}></NavBar>
+            </div>
 
-    <div className=' px-4 sm:px-8 lg:px-36 p-2  grid grid-cols-1 gap-3 sm:grid-cols-2
-         lg:grid-cols-3 lg:gap-4
-    '>
-        {
-            products.map((product)=>(
-        <div key={product.id} className=' p-2 flex-row grid grid-cols-2 text-teal-dark
-                sm:grid-cols-1
-            justify-center items-center bg-teal-light rounded-2xl'>
-            
-            <Link to="/ProductDetails">Go
-            <img src={product.image} alt={product.title} className=' object-scale-down h-36 w-96 p-2
-                lg:h-48 lg:w-96  '></img></Link>
-            <span className=' p-4 text-lg sm:text-lg text-center'>
-                {product.title}
-            </span>
-            <span className=' text-xl p-4 text-center font-bold'>
-                $ {product.price}
-            </span>
-            <button className=' border-2 p-3 font-bold rounded-lg border-teal-dark hover:bg-teal-dark hover:text-teal-light hover:' 
-                value={product.id}
-                onClick={handleAddToCart}>
-                Add to Cart
-            </button>
+            <div className=' px-4 sm:px-8 lg:px-36 p-2  grid grid-cols-1 gap-3 sm:grid-cols-2
+                            lg:grid-cols-3 lg:gap-4
+                        '>
+                {
+                    products.map((product) => (
+                        <div key={product.id} className=' p-2 flex-row grid grid-cols-2 text-teal-dark
+                                        sm:grid-cols-1
+                                    justify-center items-center bg-teal-light rounded-2xl'>
+
+                            <Link to={`/ProductDetails/${product.id} `}>
+                                <img src={product.image} alt={product.title} className=' object-scale-down h-36 w-96 p-2
+                                     lg:h-48 lg:w-96  '>
+                                </img>
+                            </Link>
+                            <span className=' p-4 text-lg sm:text-lg text-center'>
+                                {product.title}
+                            </span>
+                            <span className=' text-xl p-4 text-center font-bold'>
+                                $ {product.price}
+                            </span>
+                            <button className=' border-2 p-3 font-bold rounded-lg border-teal-dark hover:bg-teal-dark hover:text-teal-light '
+                                value={product.id}
+                                onClick={handleAddToCart}>
+                                Add to Cart
+                            </button>
+                        </div>
+                    )
+                    )
+                }
+                { isShowCart && <Cart setIsShowCart={setIsShowCart} />}
+                
+
+            </div>
         </div>
-            )
-            )
-}
-
-    </div>
-    </div>
-  )
+    )
 }
 
 export default Product
