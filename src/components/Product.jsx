@@ -1,23 +1,34 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
 import { addToCart, addToCartAsync } from '../redux/reducers/cartSlice';
 import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
 import Cart from './Cart';
-
+import { useSelector } from 'react-redux';
 const Product = ({ products })=> {
     const [isShowCart , setIsShowCart] = useState(false)
-    let a={fruits : ['msngo','apple'],
-    vegetables : ['spinach', 'potato']
-    };
-    let b={...a, fruits:[...a.fruits ,'grapes']}
-    console.log('testing', b)
+    let myCart;
+    const [cart,setCart] = useState(useSelector((state) => myCart = state.cart.cart));
+
+    
+    const checkIdExist=(cid)=>{
+        
+        const idExist = myCart.some(c=>c.id===Number(cid));
+
+    if(idExist){
+          return console.log('Exist!!!', idExist)
+    }
+    else{
+    console.log("doesnt exist", idExist) 
+    }
+}
 
     const dispatch = useDispatch();
 
     const handleAddToCart = (e) => {
         e.preventDefault();
-        console.log("inside handleaddtocart funcion", e.target.value)
+        const id=e.target.value;
+        checkIdExist(id);
         dispatch(addToCartAsync(e.target.value));
     }
 
@@ -47,11 +58,16 @@ const Product = ({ products })=> {
                             <span className=' text-xl p-4 text-center font-bold'>
                                 $ {product.price}
                             </span>
+
+                        
+
+
                             <button className=' border-2 p-3 font-bold rounded-lg border-teal-dark hover:bg-teal-dark hover:text-teal-light '
                                 value={product.id}
                                 onClick={handleAddToCart}>
                                 Add to Cart
                             </button>
+
                         </div>
                     )
                     )
