@@ -30,13 +30,13 @@ const Product = ({ products }) => {
         const idExist = myCart.some(c => c.id === Number(e.target.value));
         if (!idExist) {
                 console.log("doesnt exist", idExist)
-            
+            setBtnState(true)
              await dispatch(addToCartAsync(e.target.value));
             setBtnState(false);
         }
         else {
             // console.log("before dispatch")
-            dispatch(increaseQuantity(e.target.value))
+            await dispatch(increaseQuantity(e.target.value))
             // return console.log('Exist!!! after dispatch', idExist)
 
         }
