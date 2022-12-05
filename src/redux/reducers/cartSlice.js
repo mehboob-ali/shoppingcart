@@ -19,22 +19,20 @@ const cartSlice = createSlice(
         name: 'cart',
         initialState,
         reducers: {
-            addToCart: (state, action) => {
-            },
+            increaseQuantity: (state, action) => { 
+                const idIndex = state.cart.findIndex((st)=>st.id== action.payload) 
+                state.cart[idIndex].quantity+=1; },
             removeFromCart: () => {
             }
         },
         extraReducers :     {
             [addToCartAsync.pending] : () => {
-                console.log("pending")
+                console.log("pending");
             },
 
             [addToCartAsync.fulfilled] : (state, action) => {
-                console.log("fullfileld");
-                if(state.cart.quantity===action.payload){
-                    return {...state, cart: {...state.cart, quantity: (quantity)=>quantity+1}}
-                    console.log("running.....")
-                }
+               console.log("fullfilled");
+
                 return {...state, cart: [...state.cart, {...action.payload, quantity: 1}] }
             },
             [addToCartAsync.rejected]: (err)=>{
@@ -45,5 +43,5 @@ const cartSlice = createSlice(
     }
 )
 
-export const { addToCart } = cartSlice.actions;
+export const { increaseQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
