@@ -12,6 +12,7 @@ export const addToCartAsync = createAsyncThunk('cart/addToCartAsync',
 
 const initialState = {
     cart: [],
+    btnState : false,
 
 }
 const cartSlice = createSlice(
@@ -28,11 +29,9 @@ const cartSlice = createSlice(
                 const idIndex = state.cart.findIndex((st) => st.id == action.payload)
                 if(state.cart[idIndex].quantity>1) state.cart[idIndex].quantity -= 1 ;
             },
-
-
             removeFromCart: (state, action) => {
                 state.cart.splice(action.payload, 1)
-            }
+            },
         },
         extraReducers: {
             [addToCartAsync.pending]: () => {

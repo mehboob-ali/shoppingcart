@@ -2,8 +2,9 @@ import React, { } from 'react';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle, AiFillDelete } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
 import { increaseQuantity, decreaseQuantity, removeFromCart } from '../redux/reducers/cartSlice';
+import { setIsShowCart } from '../redux/reducers/appSlice';
 
-const Cart = ({ setIsShowCart }) => {
+const Cart = () => {
 
   const myCart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
@@ -22,11 +23,10 @@ const Cart = ({ setIsShowCart }) => {
 
   return (
     <div className=' fixed inset-0 bg-[rgba(0,0,0,0.7)] border-2'
-      onClick={() => setIsShowCart(false)}
+      onClick={() =>dispatch(setIsShowCart(false))}
     >
       <div className=' bg-white w-[250px] lg:w-[350px] h-full absolute right-0 overflow-y-scroll'
         onClick={(e) => e.stopPropagation()}>
-
         {
           !myCart.length > 0 ?
 

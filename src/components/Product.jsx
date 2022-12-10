@@ -1,53 +1,57 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { increaseQuantity, addToCartAsync } from '../redux/reducers/cartSlice';
+import { increaseQuantity, addToCartAsync  } from '../redux/reducers/cartSlice';
+import { setBtnState, setIsShowCart } from '../redux/reducers/appSlice';
 import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
 import Cart from './Cart';
 import { useSelector } from 'react-redux';
-const Product = ({ products }) => {
-    const [isShowCart, setIsShowCart] = useState(false)
-    let myCart = (useSelector((state) => state.cart.cart));
-    const [btnState, setBtnState] = useState(false)
-    // console.log("my cart is", myCart)
+    
+const Product = ({ products}) => {
+let myCart = (useSelector((state) => state.cart.cart));
+const btnState =(useSelector((state)=>state.app.btnState));
+const isShowCart = (useSelector((state)=> state.app.isShowCart));
+const dispatch = useDispatch();
 
-//  console.log("checking //// " , typeof(myCart[0].quantity))
-    //     const checkIdExist=(cid)=>{
-
-
-    //     if(idExist){
-    //           return console.log('Exist!!!', idExist)
-    //     }
-    //     else{
-    //     console.log("doesnt exist", idExist) 
-    //     }
-    // }
-
-    const dispatch = useDispatch();
-
+//// Add To cart if no item is present otherwise increase
     const handleAddToCart = async(e) => {
         e.preventDefault();
         const idExist = myCart.some(c => c.id === Number(e.target.value));
         if (!idExist) {
-                console.log("doesnt exist", idExist)
-            setBtnState(true)
+            dispatch(setBtnState(true));
              await dispatch(addToCartAsync(e.target.value));
-            setBtnState(false);
+             dispatch(setBtnState(false));
+             dispatch(setIsShowCart(true));
         }
-        else {
-            // console.log("before dispatch")
-            await dispatch(increaseQuantity(e.target.value))
-            // return console.log('Exist!!! after dispatch', idExist)
+        
+        // else {
+        //     await dispatch(increaseQuantity(e.target.value))
+        //     dispatch(setIsShowCart(true));
 
-        }
+        // }
+        dispatch(setIsShowCart(true));
 
     }
 
     return (
         <div>
-            <div>
+            	{ btnState&&
+                <div className=' flex fixed inset-0 bg-[rgba(0,0,0,0.7)] justify-center items-center content-center
+                    font-bold text-white border-2'>
+                    <svg  fill='none' className="w-28 h-28 animate-spin text-center" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
+					<path clipRule='evenodd'
+						d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z'
+						fill='currentColor' fillRule='evenodd' />
+				</svg>
+		<div>Loading ...</div>
+        </div>
+
+}
+
+		 
+            {/* <div>
                 <NavBar setIsShowCart={setIsShowCart}></NavBar>
-            </div>
+            </div> */}
 
             <div className=' px-4 sm:px-8 lg:px-36 p-2  grid grid-cols-1 gap-3 sm:grid-cols-2
                             lg:grid-cols-3 lg:gap-4
@@ -70,13 +74,11 @@ const Product = ({ products }) => {
                                 $ {product.price}
                             </span>
 
-
-
-
+                        
                             <button 
                             className={`border-2 p-3 font-bold rounded-lg 
                             ${btnState ? ' bg-gray-600 text-gray-300 line-through'
-                            : ' border-teal-dark hover:bg-teal-dark hover:text-teal-light'}`}
+                              : ' border-teal-dark hover:bg-teal-dark hover:text-teal-light'}`}
                                 value={product.id}
                                 disabled={btnState} 
                                 onClick={handleAddToCart}>
