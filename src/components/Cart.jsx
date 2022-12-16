@@ -1,8 +1,8 @@
 import React, { } from 'react';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle, AiFillDelete, AiFillCloseCircle } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
-import { increaseQuantity, decreaseQuantity, removeFromCart } from '../redux/reducers/cartSlice';
-import { setIsShowCart } from '../redux/reducers/appSlice';
+import { increaseQuantity, decreaseQuantity, removeFromCart } from '../redux/slice/cartSlice';
+import { setIsShowCart } from '../redux/slice/appSlice';
 
 const Cart = () => {
 
@@ -19,9 +19,6 @@ const Cart = () => {
   const deleteCart = (index) => {
     dispatch(removeFromCart(index))
   }
-  const calculate = () => {
-
-  }
 
   const calculateTotal = () => {
     let grandTotal = 0;
@@ -29,7 +26,7 @@ const Cart = () => {
       grandTotal = grandTotal + (mc.quantity * mc.price)
     )
     )
-    return grandTotal
+    return grandTotal;
   }
 
   return (

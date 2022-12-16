@@ -1,6 +1,6 @@
 import React from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { setIsShowCart } from '../redux/reducers/appSlice';
+import { setIsShowCart } from '../redux/slice/appSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,9 @@ function NavBar() {
     <div>
       <div className=' p-6 lg:px-16 lg:pt-4 px-4 sm:py-3 sm:px-8 justify-center items-center bg-teal-med  flex-row flow-root '>
         <Link to={`/`}>
-          <h1 className=' p-2 text-3xl sm:text-3xl font-bold font-mono float-left  text-teal-dark '>Shopping Cart</h1>
+          <h1 className=' p-2 text-3xl sm:text-3xl font-bold font-mono float-left  text-teal-dark '>
+            Shopping Cart
+          </h1>
         </Link>
         <div>
           <AiOutlineShoppingCart

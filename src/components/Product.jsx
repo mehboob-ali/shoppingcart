@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux';
-import { increaseQuantity, addToCartAsync } from '../redux/reducers/cartSlice';
-import { setBtnState, setIsShowCart } from '../redux/reducers/appSlice';
+import {  addToCartAsync } from '../redux/slice/cartSlice';
+import { setBtnState, setIsShowCart } from '../redux/slice/appSlice';
 import { Link } from 'react-router-dom';
 import Cart from './Cart';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ const Product = ({ products }) => {
     const isShowCart = (useSelector((state) => state.app.isShowCart));
     const dispatch = useDispatch();
 
-    //// Add To cart if no item is present otherwise increase
+    //// Add To cart if no item is present otherwise show cart
     const handleAddToCart = async (e) => {
         e.preventDefault();
         const idExist = myCart.some(c => c.id === Number(e.target.value));
