@@ -18,7 +18,7 @@ function App() {
     return () => {
       
     }
-  }, [])
+  }, [products.quantity])
   return (
     <div className=" bg-teal-med">
     <Provider store={store}>
