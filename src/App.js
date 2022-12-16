@@ -20,21 +20,19 @@ function App() {
     }
   }, [products.quantity])
   return (
-    <div className=" bg-teal-med">
+    <div>
       <Provider store={store}>
         <BrowserRouter>
           <NavBar></NavBar>
-
           <Routes>
             <Route path='/productdetails/:id' element={<ProductDetails products={products} />} />
             <Route path='/' element={<Product products={products} />} />
-
           </Routes>
           <Footer></Footer>
         </BrowserRouter>
       </Provider>
     </div>
-  );
+    );
 }
 
 export default App;

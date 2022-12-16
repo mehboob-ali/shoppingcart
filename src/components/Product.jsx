@@ -29,7 +29,7 @@ const Product = ({ products }) => {
 
 
     return (
-        <div>
+        <div className=' bg-teal-med'>
             {btnState && <Loading />}
             <div className=' px-4 sm:px-8 lg:px-36 p-2  grid grid-cols-1 gap-3 sm:grid-cols-2
                             lg:grid-cols-3 lg:gap-4
