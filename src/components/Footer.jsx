@@ -8,6 +8,9 @@ const Footer = () => {
         <AiFillFacebook className=' text-blue-300 text-4xl'></AiFillFacebook>
         <AiFillTwitterSquare className=' text-blue-300 text-4xl'></AiFillTwitterSquare>
       </div>
+      <div>
+        <p className=' flex justify-center items-center text-teal-light text-lg p-2 '>All Rights Reserved, 2022</p>
+      </div>
     </div>
   )
 }
