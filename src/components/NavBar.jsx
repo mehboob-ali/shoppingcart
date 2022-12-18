@@ -10,9 +10,9 @@ function NavBar() {
 
   return (
     <header className=' sticky top-0 bg-teal-dark'>
-      <div className=' p-6 lg:px-16 lg:pt-4 px-4 sm:py-3 sm:px-8 justify-center items-center   flex-row flow-root '>
+      <div className=' p-6 lg:px-16 lg:pt-4 px-4 sm:py-3 sm:px-8 justify-center items-center  flex-row flow-root '>
         <Link to={`/`}>
-          <h1 className=' p-2 text-3xl sm:text-3xl font-bold font-mono float-left  text-teal-light '>
+          <h1 className=' p-2 text-2xl sm:text-3xl font-bold font-mono float-left  text-teal-light '>
             Shopping Cart
           </h1>
         </Link>
