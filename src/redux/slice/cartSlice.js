@@ -4,7 +4,6 @@ export const addToCartAsync = createAsyncThunk('cart/addToCartAsync',
     /**  @param arg {{ id : number }} */
 
     async (arg) => {
-        console.log("fdshkbfkdbsahkfbkdbfkhbskad", arg)
         const response = await fetch(`https://fakestoreapi.com/products/${arg.id}`);
         const formattedResoponse = await response.json();
         const quantity = arg.quantity;
@@ -41,7 +40,7 @@ const cartSlice = createSlice(
             },
 
             [addToCartAsync.fulfilled]: (state, action) => {
-                console.log("fullfilled, and action payload is", action.payload);
+                console.log("fullfilled");
 
                 return { ...state, cart: [...state.cart, { ...action.payload.formattedResoponse, quantity: action.payload.quantity }] }
             },

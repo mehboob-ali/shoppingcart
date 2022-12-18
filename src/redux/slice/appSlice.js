@@ -11,11 +11,9 @@ const appSlice = createSlice(
         initialState,
         reducers: {
             setBtnState: (state, action) => {
-                console.log('action payload in app slice', action.payload);
                 state.btnState = action.payload;
             },
             setIsShowCart: (state, action) => {
-                console.log('showcart reducer', state)
                 state.isShowCart = action.payload;
             }
 
